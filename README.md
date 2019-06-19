@@ -25,3 +25,4 @@ To make work this API do below steps-
 5. if you want to see all lists then call the function as get_todos() in api.py and do as above.
 
 Home page -
+![Capture](https://user-images.githubusercontent.com/30753467/59797280-fcab2800-92fc-11e9-9b6a-5677eec717ab.PNG)
