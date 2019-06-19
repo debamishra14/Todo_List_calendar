@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TodoApp</title>
+  {% load static %}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+</head>
+
+<body>
+
+<div django-app="TaskManager">
+
+	<div class="container">
+            <div class="content">
+            <h1>TodoApp</h1>
+            <p class="tagline">a Django Project</p>
+            <form action="/update/{{ todo.id }}" method="post">
+            {% csrf_token %} <!-- csrf token for basic security -->
+
+                <div class="inputContainer">
+                  <input type="text" id="title" class="taskName" name="title" required value="{{ todo.title }}">
+                  <label for="title">Title</label>
+                </div>
+
+                <div class="inputContainer">
+                    <input type="text" id="description" class="taskName" name="description" required value="{{ todo.description }}">
+                    <label for="description">Description</label>
+                </div>
+
+                <div class="inputContainer half last">
+                    <i class="fa fa-caret-down selectArrow"></i>
+                    <select id="status" class="taskStatus" name="status_select">
+                    <option class="disabled" >{{ todo.status }}</option>
+                    {% for status in statuss %}
+                        <option class="" value="{{ status.name }}" name="{{ status.name }}" value="">{{ status.name }}</option>
+                    {% endfor %}
+                    </select>
+                    <label for="status">Status</label>
+                </div>
+
+                <div class="inputContainer half last right">
+                    <input type="date" id="dueDate" class="taskDate" name="date" required >
+                    <label for="dueDate" value="{{ todo.due_date }}">Due Date</label>
+                </div>
+
+                <div class="row">
+                    <button class="taskUpdate" name="taskUpdate" formnovalidate="" type="submit">Update Task</button>
+                </div>
+
+
+            </form>
+            </div><!-- content -->
+
+      </div><!-- container -->
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+</html>

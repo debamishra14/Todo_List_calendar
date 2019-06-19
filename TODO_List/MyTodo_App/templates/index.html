@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TodoApp</title>
+  {% load static %}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+</head>
+
+<body>
+
+  <div class="tmessage">
+  {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <button class="close" data-dismiss="alert" onclick="this.parentElement.style.display='none';">&times;</button>
+                {{ message }}
+            </div>
+        {% endfor %}
+  {% endif %}
+  </div>
+
+<div django-app="TaskManager">
+
+	<div class="container">
+            <div class="content">
+            <h1>TodoApp</h1>
+            <p class="tagline">a Django Project</p>
+            <form action="" method="post">
+            {% csrf_token %} <!-- csrf token for basic security -->
+
+                <div class="inputContainer">
+                  <input type="text" id="title" class="taskName" placeholder="Give a title" name="title" required>
+                  <label for="title">Title</label>
+                </div>
+
+                <div class="inputContainer">
+                    <input type="text" id="description" class="taskName" placeholder="What do you need to do?" name="description" required>
+                    <label for="description">Description</label>
+                </div>
+
+                <div class="inputContainer half last">
+                    <i class="fa fa-caret-down selectArrow"></i>
+                    <select id="status" class="taskStatus" name="status_select">
+                    <option class="disabled" value="">Choose a Status</option>
+                    {% for status in statuss %}
+                        <option class="" value="{{ status.name }}" name="{{ status.name }}">{{ status.name }}</option>
+                    {% endfor %}
+                    </select>
+                    <label for="status">Status</label>
+                </div>
+
+                <div class="inputContainer half last right">
+                    <input type="date" id="dueDate" class="taskDate" name="date">
+                    <label for="dueDate">Due Date</label>
+                </div>
+
+                <div class="row">
+                    <button class="taskAdd" name="taskAdd" type="submit"><i class="fa fa-plus icon"></i>Add task</button>
+                    <button class="taskDelete" name="taskDelete" formnovalidate="" type="submit" onclick=""><i class="fa fa-trash-o icon"></i>Delete Task</button>
+                    <button class="taskModify" name="taskModify" formnovalidate="" type="submit" ><i class="fa fa-plus icon"></i>Modify Task</button>
+                </div>
+
+
+            <ul  class="taskList">
+            {% for todo in todos %} <!-- django template lang - for loop -->
+                <li class="taskItem">
+                    <input type="checkbox" class="taskCheckbox" name="checkedbox" id="{{ todo.id }}" value="{{ todo.id }}">
+                    <label for="{{ todo.id }}"><span class="complete-">Title - {{ todo.title }}</span></label><br>
+                    <label for="{{ todo.id }}"><span class="completee-">Description - {{ todo.description }}</span></label><br>
+                    <span class="status-{{ todo.status }}">{{ todo.status }}</span>
+                    <strong class="taskDate"><i class="fa fa-calendar"></i>{{ todo.created }} - {{ todo.due_date }}</strong>
+                    <strong class="taskDate"><i class="fa fa-calendar"></i>Last Modified : {{ todo.modified }}</strong>
+                </li>
+            {% endfor %}
+            </ul><!-- taskList -->
+
+            </form>
+            </div><!-- content -->
+
+      </div><!-- container -->
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+</html>
