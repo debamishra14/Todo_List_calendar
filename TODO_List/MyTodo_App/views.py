@@ -63,9 +63,6 @@ def index(request):
 
 
 def update(request,id):
-    todos  = TodoList.objects.all()
-    statuss = Status.objects.all()
-
     todo = TodoList.objects.get(id=id)
 
     todo.title = request.POST['title']
