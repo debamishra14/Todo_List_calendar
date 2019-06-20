@@ -6,7 +6,7 @@ from django.core.exceptions import MultipleObjectsReturned
 
 from django.views.generic import View
 import json
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from MyTodo_App.mixins import SerializeMixin, HttpResponseMixin
 
 from MyTodo_App.utils import is_json
@@ -75,7 +75,7 @@ def update(request,id):
     todo.save()
     messages.success(request, 'Todo item is Updated Successfully.')
 
-    return render(request, 'index.html', {'todos':todos, 'statuss':statuss})
+    return HttpResponseRedirect('/')
 
 
 
